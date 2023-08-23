@@ -9,9 +9,9 @@ public class tictactoe
        Scanner sc = new Scanner(System.in);
 
        System.out.println("choose a map size:");
-       System.out.println("3");
-       System.out.println("4");
-       System.out.println("5");
+       System.out.println("3x3");
+       System.out.println("4x4");
+       System.out.println("5x5");
        int choice = sc.nextInt();
        board = new char[choice][choice];
        
@@ -32,12 +32,26 @@ public class tictactoe
 
        printBoard(board);
 
-       boolean Xwon = false;
-       boolean Owon = false;
-       int row, col;
+       doGame(board, winLength, sc);
 
-       while(!Xwon && !Owon)
-       {
+       sc.close();
+        
+    }
+
+
+
+
+
+
+
+    private static void doGame(char[][] board, int winLength, Scanner sc) 
+    {
+        boolean Xwon = false;
+        boolean Owon = false;
+        int row, col;
+
+        while(!Xwon && !Owon)
+        {
             System.out.println("X's turn");
             System.out.println("enter row:");
             row = sc.nextInt();
@@ -71,16 +85,25 @@ public class tictactoe
                 displayWinner('O');
                 break;
             }
-       }
-
-       sc.close();
-        
+        }
     }
+
+
+
+
+
+
 
     private static void displayWinner(char player)
     {
         System.out.println(player + " is the winner!");
     }
+
+
+
+
+
+
 
     private static void printBoard(char[][] board)
     {
@@ -101,135 +124,166 @@ public class tictactoe
         System.out.println(border);
     }
 
-    private static boolean wonGame(char[][] board, int winLength, char player, int pRow, int pCol)
+
+
+
+
+
+
+    private static boolean wonGame(char[][] board, 
+                            int winLength, char player, int pRow, int pCol)
     {
+        boolean won = false;
+        // Go theought every board element
         for(int r = 0; r < board.length; r++)
         {
             for(int c = 0; c < board.length; c++)
             {
                 if(board[r][c] == player)
                 {
+                    // method that checks all directions for a winning line
                     if(checkForWinningLine(board, winLength, player, r, c))
                     {
-                        return true;
+                        won = true;
                     }
                 }
             }
         }
-
-        return false;
+        // No winning line was found
+        return won;
     }
 
-    private static boolean checkForWinningLine(char[][] board, int winLength, char player, int pRow, int pCol)
+
+
+
+
+
+
+    private static boolean checkForWinningLine(char[][] board, 
+                            int winLength, char player, int pRow, int pCol)
     {
         int lineLength, r, c;
+        boolean won = false;
 
         //Check up
-        r = pRow-1; c = pCol; lineLength = 1;
-        // Keep iterating until win length is reached or line is no longer continuous
-        while(lineLength < winLength && (continueLoop(board, player, r, c)))
+        r = pRow - 1; c = pCol; lineLength = 1;
+
+        // iterate until win length is reached or line is no longer continuous
+        while((lineLength < winLength) && (continueLoop(board, player, r, c)))
         {
             r--; // move up
             lineLength++;
             if(lineLength == winLength)
-                return true;
+                won =  true;
         }
 
         //Check down
-        r = pRow+1; c = pCol; lineLength = 1;
-        while(lineLength < winLength && (continueLoop(board, player, r, c)))
+        r = pRow + 1; c = pCol; lineLength = 1;
+        while((lineLength < winLength) && (continueLoop(board, player, r, c)))
         {
             r++; // move down
             lineLength++; 
             if(lineLength == winLength)
-                return true;
+                won =  true;
         }
 
         //Check right
-        r = pRow; c = pCol+1; lineLength = 1;
-        while(lineLength < winLength && (continueLoop(board, player, r, c)))
+        r = pRow; c = pCol + 1; lineLength = 1;
+        while((lineLength < winLength) && (continueLoop(board, player, r, c)))
         {
             c++; // move right
             lineLength++;
             if(lineLength == winLength)
-                return true;
+                won =  true;
         }
 
         //Check left
-        r = pRow; c = pCol-1; lineLength = 1;
-        while(lineLength < winLength)
+        r = pRow; c = pCol - 1; lineLength = 1;
+        while((lineLength < winLength) && (continueLoop(board, player, r, c)))
         {
             c--; // move left
             lineLength++;
             if(lineLength == winLength)
-                return true;
+                won =  true;
         }
 
         //Check down-right diagonal
-        r = pRow+1; c = pCol+1; lineLength = 1;
-        while(lineLength < winLength)
+        r = pRow + 1; c = pCol + 1; lineLength = 1;
+        while((lineLength < winLength) && (continueLoop(board, player, r, c)))
         {
             r++; // move down
             c++; // move right
             lineLength++;
             if(lineLength == winLength)
-                return true;
+                won =  true;
         }
 
         //Check down-left diagonal
-        r = pRow+1; c = pCol-1; lineLength = 1;
-        while(lineLength < winLength && (continueLoop(board, player, r, c)))
+        r = pRow + 1; c = pCol - 1; lineLength = 1;
+        while((lineLength < winLength) && (continueLoop(board, player, r, c)))
         {
             r++; // move down
             c--; // move left
             lineLength++;
             if(lineLength == winLength) 
-                return true;
+                won =  true;
         }
 
         //Check up-left diagonal
-        r = pRow-1; c = pCol-1; lineLength = 1;
-        while(lineLength < winLength && (continueLoop(board, player, r, c)))
+        r = pRow - 1; c = pCol - 1; lineLength = 1;
+        while((lineLength < winLength) && (continueLoop(board, player, r, c)))
         {
             r--; // move up
             c--; // move left
             lineLength++;
             if(lineLength == winLength) 
-                return true;
+                won =  true;
         }
 
         //Check up-right diagonal
-        r = pRow-1; c = pCol+1; lineLength = 1;
+        r = pRow - 1; c = pCol + 1; lineLength = 1;
         while((lineLength < winLength) && (continueLoop(board, player, r, c)))
         {
             r--; // move up 
             c++; // move right
             lineLength++;
             if(lineLength == winLength) 
-                return true;
+                won =  true;
         }
 
-        return false; // if none of the checks succeeded then player hasn't won
+        // if none of the checks succeeded then won was never reassigned
+        return won; 
     }
 
+
+
+
+
+
+
     // checks if line is continuous
-    private static boolean continueLoop(char[][] board, char player, int r, int c)
+    private static boolean continueLoop(char[][] board, 
+                                            char player, int r, int c)
     {
+        boolean continuous = false;
         try 
         {
             if(board[r][c] == player)
             {
-                return true;
+                continuous =  true;
             }
             else 
             { 
-                return false; 
+                continuous = false; 
             }
         } 
-        catch (IndexOutOfBoundsException e) 
-        {
-            return false;
+        // If the check can't move further in the line direction
+        catch (IndexOutOfBoundsException e)
+        { 
+            // Then they haven't won
+            continuous = false;
         }
-    }
 
+        return continuous;
+    }
 }
