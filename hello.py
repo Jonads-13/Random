@@ -1,9 +1,8 @@
-# Print welcome message
-greeting = 'Hello'
-name = 'Jake'
+#
+# hello.py: print out greetings in various languages
+#
 
-# format string using variables 
-message = f'{greeting}, {name}. Welcome!'
-
-print(message)
-
+print('Hello')
+print("G'Day")
+print('Bula')
+print("Kia ora")

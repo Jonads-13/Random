@@ -57,6 +57,7 @@ public class Permutations
 			theArray[i] = p;
 			System.out.println(theArray[i] + " ");
 		}
+		sc.close();
 	}
 
 	public static long factorial(long aParam)

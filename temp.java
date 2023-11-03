@@ -9,5 +9,6 @@ public class temp
 		num = sc.nextDouble();
 		ans = (num * 9)/5 + 32;
 		System.out.println(num + " degrees Celsius " + "is " + ans + " degrees Farenheit");
+		sc.close();
 	}
 }

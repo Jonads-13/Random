@@ -14,7 +14,7 @@ public class switchtest
             case 5:
                 System.out.println("world");
                 break;
-            case 5:
+            case 6:
                 System.out.println("world1");
                 break;
                 default:

@@ -43,7 +43,7 @@ public class ProductionCode
 		{
 			try
 			{
-				int parseTry = Integer.parseInt(String.valueOf(p.charAt(i)));
+				Integer.parseInt(String.valueOf(p.charAt(i)));
 				newString = p.replaceFirst(String.valueOf(p.charAt(i)), "");
 				System.out.println("new string = " + newString);
 			}

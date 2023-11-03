@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Utils
 {
+    public static Scanner sc = new Scanner(System.in);
     public static void printCoordinates(double x, double y, double z)
     {
         System.out.printf("(%.2f,%.2f,%.2f)\n", x, y, z);
@@ -12,7 +13,7 @@ public class Utils
 
     public static char readChar(String validChars)
     {
-        Scanner sc = new Scanner(System.in);
+        
         String line = sc.nextLine();
         while(line.length() != 1 || !validChars.contains(line))
         {
@@ -23,8 +24,6 @@ public class Utils
 
     public static void guessingGame(int number)
     {
-        Scanner sc = new Scanner(System.in);
-        
         System.out.print("Enter an integer: ");
         int guess = sc.nextInt();
         
